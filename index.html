@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>समाजसेतु 🇮🇳</title>
+
+<meta name="description"
+content="समाजसेतु — लोगों को जोड़ने वाला अपना डिजिटल सोशल मीडिया मंच।">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f0f2f5;
+  color:#1c1e21;
+}
+
+header{
+  background:#fff;
+  padding:12px 15px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.header{
+  max-width:700px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.logo span{
+  color:#1877f2;
+}
+
+.menu{
+  display:flex;
+  gap:8px;
+}
+
+.menu button{
+  border:0;
+  background:#f0f2f5;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  font-size:19px;
+  cursor:pointer;
+}
+
+.container{
+  max-width:700px;
+  margin:20px auto;
+  padding:0 10px;
+}
+
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+
+.profile{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#1877f2;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.name{
+  font-weight:bold;
+}
+
+.time{
+  color:#65676b;
+  font-size:13px;
+  margin-top:3px;
+}
+
+.post-box textarea{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px;
+  margin:12px 0;
+  resize:none;
+  font-size:15px;
+  outline:none;
+}
+
+.post-box textarea:focus{
+  border-color:#1877f2;
+}
+
+.post-btn{
+  width:100%;
+  border:0;
+  background:#1877f2;
+  color:white;
+  padding:11px;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.post-btn:active{
+  transform:scale(.98);
+}
+
+.post-text{
+  margin:15px 0;
+  line-height:1.6;
+  word-wrap:break-word;
+}
+
+.actions{
+  display:flex;
+  border-top:1px solid #eee;
+  padding-top:10px;
+  gap:5px;
+}
+
+.actions button{
+  flex:1;
+  border:0;
+  background:#fff;
+  padding:9px 5px;
+  border-radius:7px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.actions button:hover{
+  background:#f0f2f5;
+}
+
+.empty{
+  text-align:center;
+  color:#65676b;
+  padding:20px;
+}
+
+footer{
+  text-align:center;
+  color:#65676b;
+  padding:25px;
+  font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="header">
+
+    <div class="logo">
+      🌉 <span>समाजसेतु</span>
+    </div>
+
+    <div class="menu">
+
+      <button
+        onclick="searchApp()"
+        aria-label="Search">
+        🔍
+      </button>
+
+      <button
+        onclick="showNotification()"
+        aria-label="Notifications">
+        🔔
+      </button>
+
+      <button
+        onclick="showProfile()"
+        aria-label="Profile">
+        👤
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <!-- CREATE POST -->
+
+  <div class="card post-box">
+
+    <div class="profile">
+
+      <div class="avatar">
+        म
+      </div>
+
+      <div>
+
+        <div class="name">
+          आप
+        </div>
+
+        <div class="time">
+          नई पोस्ट बनाएँ
+        </div>
+
+      </div>
+
+    </div>
+
+    <textarea
+      id="postText"
+      rows="3"
+      maxlength="5000"
+      placeholder="आपके मन में क्या है?"
+    ></textarea>
+
+    <button
+      class="post-btn"
+      onclick="createPost()">
+      ✍️ पोस्ट करें
+    </button>
+
+  </div>
+
+
+  <!-- FEED -->
+
+  <div id="feed">
+
+    <div class="card">
+
+      <div class="profile">
+
+        <div class="avatar">
+          स
+        </div>
+
+        <div>
+
+          <div class="name">
+            समाजसेतु
+          </div>
+
+          <div class="time">
+            अभी
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="post-text">
+
+        🌉 <strong>समाजसेतु में आपका स्वागत है!</strong>
+
+        <br><br>
+
+        यहाँ लोग अपने विचार, फोटो और वीडियो
+        साझा कर सकेंगे और एक-दूसरे से जुड़ सकेंगे।
+
+        <br><br>
+
+        🇮🇳 लोगों को जोड़ें • विचार साझा करें • समाज बनाएँ
+
+      </div>
+
+      <div class="actions">
+
+        <button onclick="likePost(this)">
+          ❤️ Like
+        </button>
+
+        <button onclick="commentPost()">
+          💬 Comment
+        </button>
+
+        <button onclick="sharePost()">
+          🔄 Share
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<footer>
+
+  © 2026 समाजसेतु 🇮🇳
+  <br>
+  लोगों को जोड़ने वाला डिजिटल मंच
+
+</footer>
+
+
+<script>
+
+function createPost(){
+
+  const textarea =
+    document.getElementById("postText");
+
+  const text =
+    textarea.value.trim();
+
+  if(!text){
+
+    alert("पहले कुछ लिखें।");
+
+    textarea.focus();
+
+    return;
+  }
+
+  const post =
+    document.createElement("div");
+
+  post.className = "card";
+
+  post.innerHTML = `
+
+    <div class="profile">
+
+      <div class="avatar">
+        म
+      </div>
+
+      <div>
+
+        <div class="name">
+          आप
+        </div>
+
+        <div class="time">
+          अभी
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="post-text">
+      ${escapeHTML(text)}
+    </div>
+
+    <div class="actions">
+
+      <button onclick="likePost(this)">
+        ❤️ Like
+      </button>
+
+      <button onclick="commentPost()">
+        💬 Comment
+      </button>
+
+      <button onclick="sharePost()">
+        🔄 Share
+      </button>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById("feed")
+    .prepend(post);
+
+  textarea.value = "";
+
+}
+
+
+function likePost(button){
+
+  if(button.dataset.liked === "true"){
+
+    button.innerText = "❤️ Like";
+
+    button.dataset.liked = "false";
+
+  }else{
+
+    button.innerText = "💙 Liked";
+
+    button.dataset.liked = "true";
+
+  }
+
+}
+
+
+function commentPost(){
+
+  const comment =
+    prompt("अपनी टिप्पणी लिखें:");
+
+  if(comment && comment.trim()){
+
+    alert(
+      "टिप्पणी अभी demo में है:\n\n" +
+      comment.trim()
+    );
+
+  }
+
+}
+
+
+async function sharePost(){
+
+  const shareData = {
+
+    title:"समाजसेतु 🇮🇳",
+
+    text:
+      "समाजसेतु — लोगों को जोड़ने वाला डिजिटल मंच।"
+
+  };
+
+  try{
+
+    if(navigator.share){
+
+      await navigator.share(shareData);
+
+    }else{
+
+      await navigator.clipboard.writeText(
+        shareData.text
+      );
+
+      alert("Share text copy हो गया।");
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+function searchApp(){
+
+  const search =
+    prompt("क्या खोजना चाहते हैं?");
+
+  if(search && search.trim()){
+
+    alert(
+      "Search सुविधा अगले version में जोड़ी जाएगी।"
+    );
+
+  }
+
+}
+
+
+function showNotification(){
+
+  alert(
+    "🔔 अभी कोई नई notification नहीं है।"
+  );
+
+}
+
+
+function showProfile(){
+
+  alert(
+    "👤 Profile सुविधा अगले चरण में जोड़ी जाएगी।"
+  );
+
+}
+
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+
+}
+
+</script>
+
+</body>
+  </html>
