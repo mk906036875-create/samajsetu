@@ -1,527 +1,352 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>समाजसेतु 🇮🇳</title>
-
-<meta name="description"
-content="समाजसेतु — लोगों को जोड़ने वाला अपना डिजिटल सोशल मीडिया मंच।">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>समाजसेतु | SamajSetu</title>
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:Arial,sans-serif;
-  background:#f0f2f5;
-  color:#1c1e21;
-}
-
-header{
-  background:#fff;
-  padding:12px 15px;
-  position:sticky;
-  top:0;
-  z-index:100;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.header{
-  max-width:700px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-size:22px;
-  font-weight:bold;
-}
-
-.logo span{
-  color:#1877f2;
-}
-
-.menu{
-  display:flex;
-  gap:8px;
-}
-
-.menu button{
-  border:0;
-  background:#f0f2f5;
-  border-radius:50%;
-  width:40px;
-  height:40px;
-  font-size:19px;
-  cursor:pointer;
-}
-
-.container{
-  max-width:700px;
-  margin:20px auto;
-  padding:0 10px;
-}
-
-.card{
-  background:#fff;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:15px;
-  box-shadow:0 1px 4px rgba(0,0,0,.08);
-}
-
-.profile{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.avatar{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:#1877f2;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  font-weight:bold;
-}
-
-.name{
-  font-weight:bold;
-}
-
-.time{
-  color:#65676b;
-  font-size:13px;
-  margin-top:3px;
-}
-
-.post-box textarea{
-  width:100%;
-  border:1px solid #ddd;
-  border-radius:10px;
-  padding:12px;
-  margin:12px 0;
-  resize:none;
-  font-size:15px;
-  outline:none;
-}
-
-.post-box textarea:focus{
-  border-color:#1877f2;
-}
-
-.post-btn{
-  width:100%;
-  border:0;
-  background:#1877f2;
-  color:white;
-  padding:11px;
-  border-radius:8px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.post-btn:active{
-  transform:scale(.98);
-}
-
-.post-text{
-  margin:15px 0;
-  line-height:1.6;
-  word-wrap:break-word;
-}
-
-.actions{
-  display:flex;
-  border-top:1px solid #eee;
-  padding-top:10px;
-  gap:5px;
-}
-
-.actions button{
-  flex:1;
-  border:0;
-  background:#fff;
-  padding:9px 5px;
-  border-radius:7px;
-  font-size:14px;
-  cursor:pointer;
-}
-
-.actions button:hover{
-  background:#f0f2f5;
-}
-
-.empty{
-  text-align:center;
-  color:#65676b;
-  padding:20px;
-}
-
-footer{
-  text-align:center;
-  color:#65676b;
-  padding:25px;
-  font-size:13px;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f1f5f2;color:#17201b}
+body.dark{background:#101510;color:#eee}
+header{position:sticky;top:0;z-index:5;background:#fff;padding:12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #ddd}
+.dark header,.dark .card{background:#182019;color:#eee}
+.logo{font-size:20px;font-weight:bold;color:#16803d;white-space:nowrap}
+.search{flex:1;padding:10px 14px;border:1px solid #ddd;border-radius:25px;background:#f5f5f5}
+button{border:0;border-radius:12px;padding:10px;cursor:pointer}
+.icon{background:#eee}
+main{max-width:700px;margin:15px auto;padding:0 10px 70px}
+.card{background:white;border:1px solid #ddd;border-radius:16px;padding:15px;margin-bottom:14px;box-shadow:0 4px 15px #00000009}
+.create{display:flex;gap:10px}
+.create button{flex:1;text-align:left;background:#f2f5f3;color:#68756d}
+.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#166534,#22c55e);color:white;display:grid;place-items:center;font-weight:bold}
+.head{display:flex;align-items:center;gap:10px}
+.name{font-weight:bold}
+.time{font-size:12px;color:#777}
+.text{padding:14px 0;line-height:1.5;white-space:pre-wrap}
+.media{width:100%;max-height:430px;object-fit:cover;border-radius:12px;background:#111}
+.actions{display:flex;border-top:1px solid #eee;margin-top:10px}
+.actions button{flex:1;background:transparent;color:#667}
+.liked{color:#e11d48!important}
+.comment{background:#f3f5f4;border-radius:10px;padding:8px;margin-top:7px;font-size:14px}
+.commentbox{display:flex;gap:6px;margin-top:8px}
+.commentbox input{flex:1;border:1px solid #ddd;border-radius:20px;padding:9px}
+.page{display:none}.page.on{display:block}
+nav{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid #ddd;display:flex;z-index:10}
+.dark nav{background:#182019}
+nav button{flex:1;background:transparent;font-size:12px}
+nav b{display:block;font-size:20px}
+.modal{display:none;position:fixed;inset:0;background:#0008;z-index:20;padding:15px;align-items:center;justify-content:center}
+.modal.on{display:flex}
+.box{background:white;border-radius:18px;padding:16px;width:100%;max-width:520px}
+.dark .box{background:#182019}
+textarea{width:100%;height:130px;padding:12px;border:1px solid #ddd;border-radius:12px;resize:none;background:transparent;color:inherit}
+.preview img,.preview video{width:100%;max-height:280px;margin-top:10px;border-radius:12px}
+.row{display:flex;gap:8px;margin-top:10px;align-items:center}
+.postbtn{margin-left:auto;background:#16803d;color:white;font-weight:bold}
+.close{float:right;background:#eee}
+.toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:#111;color:white;padding:10px 15px;border-radius:10px;display:none;z-index:30}
 </style>
 </head>
 
 <body>
 
 <header>
-
-  <div class="header">
-
-    <div class="logo">
-      🌉 <span>समाजसेतु</span>
-    </div>
-
-    <div class="menu">
-
-      <button
-        onclick="searchApp()"
-        aria-label="Search">
-        🔍
-      </button>
-
-      <button
-        onclick="showNotification()"
-        aria-label="Notifications">
-        🔔
-      </button>
-
-      <button
-        onclick="showProfile()"
-        aria-label="Profile">
-        👤
-      </button>
-
-    </div>
-
-  </div>
-
+<div class="logo">🌏 समाजसेतु</div>
+<input class="search" placeholder="🔎 खोजें..." oninput="search(this.value)">
+<button class="icon" onclick="dark()">🌙</button>
 </header>
 
+<main>
 
-<main class="container">
+<!-- HOME -->
+<section id="home" class="page on">
 
-  <!-- CREATE POST -->
+<div class="card create">
+<div class="avatar">M</div>
+<button onclick="openPost()">आपके मन में क्या है?</button>
+</div>
 
-  <div class="card post-box">
+<div id="feed">
 
-    <div class="profile">
+<article class="card post">
+<div class="head">
+<div class="avatar">S</div>
+<div><div class="name">समाजसेतु टीम</div><div class="time">अभी • सार्वजनिक</div></div>
+</div>
 
-      <div class="avatar">
-        म
-      </div>
+<div class="text">🌏 समाजसेतु में आपका स्वागत है।
 
-      <div>
+यहाँ लोग विचार, ज्ञान, संस्कृति और अपनी कहानी साझा कर सकते हैं। 🇮🇳</div>
 
-        <div class="name">
-          आप
-        </div>
+<div class="actions">
+<button onclick="like(this)">♡ Like</button>
+<button onclick="focusComment(this)">💬 Comment</button>
+<button onclick="share()">↗ Share</button>
+</div>
 
-        <div class="time">
-          नई पोस्ट बनाएँ
-        </div>
+<div class="commentbox">
+<input placeholder="टिप्पणी लिखें..." onkeydown="enterComment(event,this)">
+<button onclick="comment(this)">➤</button>
+</div>
+</article>
 
-      </div>
-
-    </div>
-
-    <textarea
-      id="postText"
-      rows="3"
-      maxlength="5000"
-      placeholder="आपके मन में क्या है?"
-    ></textarea>
-
-    <button
-      class="post-btn"
-      onclick="createPost()">
-      ✍️ पोस्ट करें
-    </button>
-
-  </div>
+</div>
+</section>
 
 
-  <!-- FEED -->
+<!-- PROFILE -->
+<section id="profile" class="page">
+<div class="card">
+<div style="font-size:60px;text-align:center">👤</div>
+<h2>Manish Tiwari</h2>
+<p>समाजसेतु सदस्य 🇮🇳</p>
+<hr>
+<b>0</b> Posts &nbsp;&nbsp;
+<b>0</b> Friends &nbsp;&nbsp;
+<b>0</b> Followers
+</div>
+</section>
 
-  <div id="feed">
 
-    <div class="card">
+<!-- FRIENDS -->
+<section id="friends" class="page">
+<div class="card">
+<h2>👥 Friends</h2>
+<p>नए लोगों से जुड़ें और अपना नेटवर्क बनाएं।</p>
+<div class="comment">Amit Kumar <button onclick="follow(this)">Follow</button></div>
+<div class="comment">Rahul Singh <button onclick="follow(this)">Follow</button></div>
+<div class="comment">Priya <button onclick="follow(this)">Follow</button></div>
+</div>
+</section>
 
-      <div class="profile">
 
-        <div class="avatar">
-          स
-        </div>
+<!-- CHAT -->
+<section id="chat" class="page">
+<div class="card">
+<h2>💬 Messages</h2>
+<div class="comment">Amit Kumar — नमस्ते 👋</div>
+<div class="comment">Priya — समाजसेतु पर स्वागत है।</div>
+</div>
+</section>
 
-        <div>
 
-          <div class="name">
-            समाजसेतु
-          </div>
+<!-- NOTIFICATION -->
+<section id="notify" class="page">
+<div class="card">
+<h2>🔔 Notifications</h2>
+<div class="comment">❤️ आपकी पोस्ट को पसंद किया गया।</div>
+<div class="comment">👥 नए दोस्त सुझाव उपलब्ध हैं।</div>
+</div>
+</section>
 
-          <div class="time">
-            अभी
-          </div>
 
-        </div>
-
-      </div>
-
-      <div class="post-text">
-
-        🌉 <strong>समाजसेतु में आपका स्वागत है!</strong>
-
-        <br><br>
-
-        यहाँ लोग अपने विचार, फोटो और वीडियो
-        साझा कर सकेंगे और एक-दूसरे से जुड़ सकेंगे।
-
-        <br><br>
-
-        🇮🇳 लोगों को जोड़ें • विचार साझा करें • समाज बनाएँ
-
-      </div>
-
-      <div class="actions">
-
-        <button onclick="likePost(this)">
-          ❤️ Like
-        </button>
-
-        <button onclick="commentPost()">
-          💬 Comment
-        </button>
-
-        <button onclick="sharePost()">
-          🔄 Share
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
+<!-- AI -->
+<section id="ai" class="page">
+<div class="card">
+<h2>🤖 SamajSetu AI</h2>
+<p>AI translation, writing, summary और AI chat यहाँ जोड़े जाएंगे।</p>
+<button onclick="msg('AI backend अगले चरण में जोड़ा जाएगा')">✨ AI शुरू करें</button>
+</div>
+</section>
 
 </main>
 
 
-<footer>
+<!-- BOTTOM NAV -->
+<nav>
+<button onclick="page('home')"><b>🏠</b>Home</button>
+<button onclick="page('friends')"><b>👥</b>Friends</button>
+<button onclick="openPost()"><b>➕</b>Post</button>
+<button onclick="page('chat')"><b>💬</b>Chat</button>
+<button onclick="page('profile')"><b>👤</b>Profile</button>
+</nav>
 
-  © 2026 समाजसेतु 🇮🇳
-  <br>
-  लोगों को जोड़ने वाला डिजिटल मंच
 
-</footer>
+<!-- POST MODAL -->
+<div id="modal" class="modal">
+<div class="box">
+
+<button class="close" onclick="closePost()">✕</button>
+<h2>नई पोस्ट</h2>
+
+<textarea id="txt" placeholder="आपके मन में क्या है?"></textarea>
+
+<div id="preview" class="preview"></div>
+
+<div class="row">
+
+<label>
+📷
+<input type="file" accept="image/*" hidden onchange="media(this,'img')">
+</label>
+
+<label>
+🎥
+<input type="file" accept="video/*" hidden onchange="media(this,'video')">
+</label>
+
+<button class="postbtn" onclick="post()">Post करें</button>
+
+</div>
+</div>
+</div>
+
+<div id="toast" class="toast"></div>
 
 
 <script>
 
-function createPost(){
+function page(id){
+document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
+document.getElementById(id).classList.add("on");
+scrollTo(0,0);
+}
 
-  const textarea =
-    document.getElementById("postText");
+function dark(){
+document.body.classList.toggle("dark");
+localStorage.dark=document.body.classList.contains("dark");
+}
 
-  const text =
-    textarea.value.trim();
+if(localStorage.dark==="true")document.body.classList.add("dark");
 
-  if(!text){
+function openPost(){
+document.getElementById("modal").classList.add("on");
+}
 
-    alert("पहले कुछ लिखें।");
+function closePost(){
+document.getElementById("modal").classList.remove("on");
+document.getElementById("txt").value="";
+document.getElementById("preview").innerHTML="";
+}
 
-    textarea.focus();
+function media(input,type){
 
-    return;
-  }
+let f=input.files[0];
+if(!f)return;
 
-  const post =
-    document.createElement("div");
+let u=URL.createObjectURL(f);
 
-  post.className = "card";
-
-  post.innerHTML = `
-
-    <div class="profile">
-
-      <div class="avatar">
-        म
-      </div>
-
-      <div>
-
-        <div class="name">
-          आप
-        </div>
-
-        <div class="time">
-          अभी
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="post-text">
-      ${escapeHTML(text)}
-    </div>
-
-    <div class="actions">
-
-      <button onclick="likePost(this)">
-        ❤️ Like
-      </button>
-
-      <button onclick="commentPost()">
-        💬 Comment
-      </button>
-
-      <button onclick="sharePost()">
-        🔄 Share
-      </button>
-
-    </div>
-
-  `;
-
-  document
-    .getElementById("feed")
-    .prepend(post);
-
-  textarea.value = "";
+document.getElementById("preview").innerHTML=
+type==="img"
+?`<img src="${u}">`
+:`<video src="${u}" controls></video>`;
 
 }
 
+function post(){
 
-function likePost(button){
+let text=document.getElementById("txt").value.trim();
+let media=document.querySelector("#preview img,#preview video");
 
-  if(button.dataset.liked === "true"){
+if(!text&&!media){
+msg("पहले कुछ लिखें या फोटो/video चुनें");
+return;
+}
 
-    button.innerText = "❤️ Like";
+let a=document.createElement("article");
+a.className="card post";
 
-    button.dataset.liked = "false";
+let m=media?media.outerHTML:"";
 
-  }else{
+a.innerHTML=`
+<div class="head">
+<div class="avatar">M</div>
+<div><div class="name">Manish Tiwari</div><div class="time">अभी • सार्वजनिक</div></div>
+</div>
+${text?`<div class="text">${safe(text)}</div>`:""}
+${m}
+<div class="actions">
+<button onclick="like(this)">♡ Like</button>
+<button onclick="focusComment(this)">💬 Comment</button>
+<button onclick="share()">↗ Share</button>
+</div>
+<div class="commentbox">
+<input placeholder="टिप्पणी लिखें..." onkeydown="enterComment(event,this)">
+<button onclick="comment(this)">➤</button>
+</div>`;
 
-    button.innerText = "💙 Liked";
-
-    button.dataset.liked = "true";
-
-  }
+document.getElementById("feed").prepend(a);
+closePost();
+msg("पोस्ट तैयार हो गई 🎉");
 
 }
 
+function like(b){
+b.classList.toggle("liked");
+b.textContent=b.classList.contains("liked")?"♥ Liked":"♡ Like";
+}
 
-function commentPost(){
+function comment(b){
+let i=b.previousElementSibling;
+let t=i.value.trim();
+if(!t)return;
 
-  const comment =
-    prompt("अपनी टिप्पणी लिखें:");
+let c=document.createElement("div");
+c.className="comment";
+c.innerHTML="<b>आप</b> — "+safe(t);
+b.parentElement.parentElement.insertBefore(c,b.parentElement);
+i.value="";
+}
 
-  if(comment && comment.trim()){
+function enterComment(e,i){
+if(e.key==="Enter"){
+e.preventDefault();
+i.nextElementSibling.click();
+}
+}
 
-    alert(
-      "टिप्पणी अभी demo में है:\n\n" +
-      comment.trim()
-    );
+function focusComment(b){
+let i=b.closest(".post").querySelector(".commentbox input");
+if(i)i.focus();
+}
 
-  }
+function share(){
+
+if(navigator.share){
+navigator.share({
+title:"SamajSetu",
+text:"SamajSetu पर पोस्ट देखें 🌏",
+url:location.href
+}).catch(()=>{});
+}else{
+navigator.clipboard.writeText(location.href);
+msg("Link copy हो गया");
+}
 
 }
 
+function follow(b){
+b.textContent=b.textContent==="Follow"?"Following":"Follow";
+}
 
-async function sharePost(){
+function search(v){
 
-  const shareData = {
+v=v.toLowerCase();
 
-    title:"समाजसेतु 🇮🇳",
-
-    text:
-      "समाजसेतु — लोगों को जोड़ने वाला डिजिटल मंच।"
-
-  };
-
-  try{
-
-    if(navigator.share){
-
-      await navigator.share(shareData);
-
-    }else{
-
-      await navigator.clipboard.writeText(
-        shareData.text
-      );
-
-      alert("Share text copy हो गया।");
-
-    }
-
-  }catch(error){
-
-    console.log(error);
-
-  }
+document.querySelectorAll(".post").forEach(p=>{
+p.style.display=p.innerText.toLowerCase().includes(v)?"":"none";
+});
 
 }
 
-
-function searchApp(){
-
-  const search =
-    prompt("क्या खोजना चाहते हैं?");
-
-  if(search && search.trim()){
-
-    alert(
-      "Search सुविधा अगले version में जोड़ी जाएगी।"
-    );
-
-  }
-
+function safe(t){
+return t.replace(/[&<>"']/g,x=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",
+'"':"&quot;","'":"&#039;"
+}[x]));
 }
 
+function msg(t){
 
-function showNotification(){
+let x=document.getElementById("toast");
+x.textContent=t;
+x.style.display="block";
 
-  alert(
-    "🔔 अभी कोई नई notification नहीं है।"
-  );
+clearTimeout(window.tt);
 
-}
-
-
-function showProfile(){
-
-  alert(
-    "👤 Profile सुविधा अगले चरण में जोड़ी जाएगी।"
-  );
-
-}
-
-
-function escapeHTML(text){
-
-  const div =
-    document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
+window.tt=setTimeout(()=>{
+x.style.display="none";
+},2200);
 
 }
 
