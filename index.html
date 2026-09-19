@@ -195,6 +195,45 @@ textarea{width:100%;height:130px;padding:12px;border:1px solid #ddd;border-radiu
 
 
 <script>
+// यहाँ आपका Cloudflare Worker का API लिंक दर्ज है
+const API_URL = "https://samajsetu-api.mk906036875.workers.dev";
+
+// पेज लोड होते ही डेटाबेस से पोस्ट्स लोड करें
+window.addEventListener("DOMContentLoaded", loadPosts);
+
+async function loadPosts() {
+  try {
+    let res = await fetch(`${API_URL}/posts`);
+    let posts = await res.json();
+    
+    if (Array.isArray(posts) && posts.length > 0) {
+      let feed = document.getElementById("feed");
+      // डिफ़ॉल्ट वेलकम पोस्ट के बाद क्लाउड पोस्ट्स जोड़ें
+      posts.forEach(p => {
+        let a = document.createElement("article");
+        a.className = "card post";
+        a.innerHTML = `
+          <div class="head">
+            <div class="avatar">${p.author ? p.author[0].toUpperCase() : 'M'}</div>
+            <div><div class="name">${safe(p.author || 'Manish Tiwari')}</div><div class="time">सार्वजनिक</div></div>
+          </div>
+          <div class="text">${safe(p.content)}</div>
+          <div class="actions">
+            <button onclick="like(this)">♡ Like</button>
+            <button onclick="focusComment(this)">💬 Comment</button>
+            <button onclick="share()">↗ Share</button>
+          </div>
+          <div class="commentbox">
+            <input placeholder="टिप्पणी लिखें..." onkeydown="enterComment(event,this)">
+            <button onclick="comment(this)">➤</button>
+          </div>`;
+        feed.appendChild(a);
+      });
+    }
+  } catch (e) {
+    console.error("Failed to load posts", e);
+  }
+}
 
 function page(id){
 document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));
@@ -220,55 +259,58 @@ document.getElementById("preview").innerHTML="";
 }
 
 function media(input,type){
-
 let f=input.files[0];
 if(!f)return;
-
 let u=URL.createObjectURL(f);
-
 document.getElementById("preview").innerHTML=
 type==="img"
 ?`<img src="${u}">`
 :`<video src="${u}" controls></video>`;
-
 }
 
-function post(){
-
+async function post(){
 let text=document.getElementById("txt").value.trim();
-let media=document.querySelector("#preview img,#preview video");
-
-if(!text&&!media){
-msg("पहले कुछ लिखें या फोटो/video चुनें");
+if(!text){
+msg("पहले कुछ लिखें");
 return;
 }
 
-let a=document.createElement("article");
-a.className="card post";
+try {
+  let res = await fetch(`${API_URL}/posts`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ author: "Manish Tiwari", content: text })
+  });
 
-let m=media?media.outerHTML:"";
+  let result = await res.json();
+  if(result.success) {
+    let a=document.createElement("article");
+    a.className="card post";
+    a.innerHTML=`
+    <div class="head">
+    <div class="avatar">M</div>
+    <div><div class="name">Manish Tiwari</div><div class="time">अभी • सार्वजनिक</div></div>
+    </div>
+    <div class="text">${safe(text)}</div>
+    <div class="actions">
+    <button onclick="like(this)">♡ Like</button>
+    <button onclick="focusComment(this)">💬 Comment</button>
+    <button onclick="share()">↗ Share</button>
+    </div>
+    <div class="commentbox">
+    <input placeholder="टिप्पणी लिखें..." onkeydown="enterComment(event,this)">
+    <button onclick="comment(this)">➤</button>
+    </div>`;
 
-a.innerHTML=`
-<div class="head">
-<div class="avatar">M</div>
-<div><div class="name">Manish Tiwari</div><div class="time">अभी • सार्वजनिक</div></div>
-</div>
-${text?`<div class="text">${safe(text)}</div>`:""}
-${m}
-<div class="actions">
-<button onclick="like(this)">♡ Like</button>
-<button onclick="focusComment(this)">💬 Comment</button>
-<button onclick="share()">↗ Share</button>
-</div>
-<div class="commentbox">
-<input placeholder="टिप्पणी लिखें..." onkeydown="enterComment(event,this)">
-<button onclick="comment(this)">➤</button>
-</div>`;
-
-document.getElementById("feed").prepend(a);
-closePost();
-msg("पोस्ट तैयार हो गई 🎉");
-
+    document.getElementById("feed").prepend(a);
+    closePost();
+    msg("पोस्ट क्लाउड पर सेव हो गई 🎉");
+  } else {
+    msg("पोस्ट सेव करने में त्रुटि हुई");
+  }
+} catch (e) {
+  msg("कनेक्शन एरर हुआ");
+}
 }
 
 function like(b){
@@ -301,7 +343,6 @@ if(i)i.focus();
 }
 
 function share(){
-
 if(navigator.share){
 navigator.share({
 title:"SamajSetu",
@@ -312,7 +353,6 @@ url:location.href
 navigator.clipboard.writeText(location.href);
 msg("Link copy हो गया");
 }
-
 }
 
 function follow(b){
@@ -320,13 +360,10 @@ b.textContent=b.textContent==="Follow"?"Following":"Follow";
 }
 
 function search(v){
-
 v=v.toLowerCase();
-
 document.querySelectorAll(".post").forEach(p=>{
 p.style.display=p.innerText.toLowerCase().includes(v)?"":"none";
 });
-
 }
 
 function safe(t){
@@ -337,20 +374,16 @@ return t.replace(/[&<>"']/g,x=>({
 }
 
 function msg(t){
-
 let x=document.getElementById("toast");
 x.textContent=t;
 x.style.display="block";
-
 clearTimeout(window.tt);
-
 window.tt=setTimeout(()=>{
 x.style.display="none";
 },2200);
-
 }
-
 </script>
 
 </body>
-  </html>
+                                  </html>
+ 
